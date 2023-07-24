@@ -12,7 +12,6 @@ const Mainpage = () => {
       setMovies(res.data.results);
     });
   }, []);
-  console.log(movies);
 
   // const truncateString = (str, num) => {
   //   if (str?.length > num) {
