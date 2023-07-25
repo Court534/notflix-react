@@ -3,12 +3,12 @@ import { UserAuth } from "../context/authContext";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { db } from "../firebase";
 import { updateDoc, doc, onSnapshot } from "firebase/firestore";
+import {AiOutlineClose} from 'react-icons/ai'
 
 const Savedshows = () => {
+  const [movies, setMovies] = useState([]);
 
-  const [movies, setMovies] = useState([])
-
-  const {user} = UserAuth()
+  const { user } = UserAuth();
 
   const slideLeft = () => {
     var slider = document.getElementById("slider");
@@ -21,14 +21,27 @@ const Savedshows = () => {
   };
 
   useEffect(() => {
-    const storedMovies = onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
-      setMovies(doc.data()?.savedMovies)
-    })
-  
-    // Clean up subscription on unmount
-    return () => storedMovies()
-  }, [user?.email])
-  
+    const storedMovies = onSnapshot(
+      doc(db, "users", `${user?.email}`),
+      (doc) => {
+        setMovies(doc.data()?.savedMovies);
+      }
+    );
+
+    return () => storedMovies();
+  }, [user?.email]);
+
+  const movieRef = doc(db, 'users', `${user?.email}`)
+  const deleteShow = async (passedID) => {
+    try {
+      const result = movies.filter((item) => item.id !== passedID)
+      await updateDoc(movieRef, {
+        savedMovies: result
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <>
@@ -54,6 +67,7 @@ const Savedshows = () => {
                 <p className="white-space-normal text-xs md:xs font-bold flex justify-center items-center h-full text-center">
                   {item?.title}
                 </p>
+                <p onClick={() => deleteShow(item.id)} className="absolute text-gray-600 top-4 right-4"><AiOutlineClose size={20}/></p>
               </div>
             </div>
           ))}
