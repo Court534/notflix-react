@@ -67,7 +67,7 @@ const Savedshows = () => {
                 <p className="white-space-normal text-xs md:xs font-bold flex justify-center items-center h-full text-center">
                   {item?.title}
                 </p>
-                <p onClick={() => deleteShow(item.id)} className="absolute text-gray-600 top-4 right-4"><AiOutlineClose size={20}/></p>
+                <p onClick={() => deleteShow(item.id)} className="absolute text-gray-600 top-4 right-4 hover:scale-110 hover:text-red-600"><AiOutlineClose size={20}/></p>
               </div>
             </div>
           ))}
