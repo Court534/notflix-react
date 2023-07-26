@@ -17,20 +17,20 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex sm:flex justify-between sm:p-4 z-[100] w-full absolute">
+    <div className="sm:flex justify-between z-[100] p-4 w-full absolute">
       <Link to="/">
-        <h1 className="text-red-600 text-5xl font-bold cursor-pointer">
+        <h1 className="text-red-600 text-5xl font-bold cursor-pointer mb-4">
           NOTFLIX
         </h1>
       </Link>
       {user?.email ? (
-        <div>
+        <div className="">
           <Link to="/account">
             <button className="pr-4 cursor-pointer text-white">Account</button>
           </Link>
           <button
             onClick={handleLogout}
-            className="bg-red-600 px-6 py-2 rounded cursor-pointer text-white"
+            className="bg-red-600 sm:px-6 sm:py-2 rounded cursor-pointer text-white"
           >
             Logout
           </button>
